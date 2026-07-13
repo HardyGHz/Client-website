@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme {
+  --color-deep: #0e2a21;
+  --color-deepsoft: #173b2e;
+  --color-cream: #f4efe4;
+  --color-surface: #fffdf8;
+  --color-ink: #202622;
+  --color-mist: #f6f3ec;
+  --color-copper: #c98b52;
+  --color-coppersoft: #dca976;
+  --color-aqua: #7fb5a4;
+
+  --font-display: "Fraunces", "Georgia", serif;
+  --font-body: "Figtree", "Segoe UI", sans-serif;
+
+  --animate-marquee: marquee 46s linear infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-cream);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-copper);
+  color: var(--color-surface);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: #2e5445;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-copper);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-copper);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
