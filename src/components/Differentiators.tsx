@@ -1,5 +1,6 @@
 import { CircleCheck, Wallet, Sparkles, Users } from 'lucide-react'
 import Reveal from './Reveal'
+import RoomVideo from './RoomVideo'
 
 const POINTS = [
   {
@@ -30,14 +31,13 @@ export default function Differentiators() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="grid gap-14 lg:grid-cols-2 lg:items-center">
           <Reveal>
-            <div className="overflow-hidden rounded-3xl">
-              <img
-                src="https://images.unsplash.com/photo-1704455306251-b4634215d98f?w=1200&q=80&auto=format&fit=crop"
-                alt="Interior modern al unui cabinet stomatologic"
-                loading="lazy"
-                className="h-[420px] w-full object-cover"
-              />
-            </div>
+            <RoomVideo
+              className="h-[420px]"
+              alt="Cabinetul Crisdental din Florești, filmat în sala de tratament"
+            />
+            <p className="mt-3 text-xs text-[var(--color-text-soft)]">
+              Cabinetul nostru, filmat exact așa cum îl veți găsi.
+            </p>
           </Reveal>
 
           <div>
