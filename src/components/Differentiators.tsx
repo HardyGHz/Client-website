@@ -3,65 +3,50 @@ import Reveal from './Reveal'
 import RoomVideo from './RoomVideo'
 
 const POINTS = [
-  {
-    icon: CircleCheck,
-    title: 'Tarife afișate, nu „la telefon"',
-    text: 'Vedeți prețul fiecărei proceduri înainte să sunați. Puține cabinete din Florești fac asta.',
-  },
-  {
-    icon: Wallet,
-    title: 'Plată în rate pentru aparate',
-    text: 'Aparatele ortodontice fixe se pot plăti eșalonat, fără să blocați o sumă mare dintr-o dată.',
-  },
-  {
-    icon: Sparkles,
-    title: 'Consultație gratuită',
-    text: 'La stomatologie generală, chirurgie, ortodonție sau implantologie — nu plătiți ca să aflați ce aveți nevoie.',
-  },
-  {
-    icon: Users,
-    title: '6 specializări reale',
-    text: 'Ortodonție, endodonție, chirurgie dento-alveolară — nu un singur medic care face de toate.',
-  },
+  { icon: CircleCheck, title: 'Tarife afișate, nu „la telefon”', text: 'Vedeți prețul fiecărei proceduri înainte să sunați.' },
+  { icon: Wallet, title: 'Plată în rate pentru aparate', text: 'Costul aparatului ortodontic poate fi plătit eșalonat.' },
+  { icon: Sparkles, title: 'Consultație gratuită', text: 'Aflați ce tratament vi se potrivește fără costul consultației.' },
+  { icon: Users, title: '6 specializări reale', text: 'Fiecare caz ajunge direct la medicul cu expertiza potrivită.' },
 ]
 
 export default function Differentiators() {
   return (
-    <section className="bg-[var(--color-bg)] py-24">
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="grid gap-14 lg:grid-cols-2 lg:items-center">
-          <Reveal>
-            <RoomVideo
-              className="h-[420px]"
-              alt="Cabinetul Crisdental din Florești, filmat în sala de tratament"
-            />
-            <p className="mt-3 text-xs text-[var(--color-text-soft)]">
-              Cabinetul nostru, filmat exact așa cum îl veți găsi.
-            </p>
-          </Reveal>
-
-          <div>
-            <Reveal>
-              <span className="text-xs font-medium tracking-[0.2em] text-[var(--color-accent)] uppercase">
-                De ce Crisdental
-              </span>
-              <h2 className="mt-3 font-display text-3xl text-[var(--color-deep)] sm:text-4xl">
-                Diferența nu e în echipamente. E în transparență.
-              </h2>
+    <section className="bg-[var(--color-bg)] py-8 sm:py-12">
+      <div className="section-shell">
+        <div className="overflow-hidden rounded-[2rem] bg-[var(--color-deep)] p-4 text-white shadow-[0_38px_100px_rgba(13,59,61,.18)] sm:rounded-[3.5rem] sm:p-6 lg:p-8">
+          <div className="grid gap-10 lg:grid-cols-[1.08fr_.92fr] lg:items-stretch">
+            <Reveal className="relative min-h-[420px] lg:min-h-[690px]">
+              <RoomVideo className="absolute inset-0 h-full w-full rounded-[1.4rem] sm:rounded-[2.7rem]" alt="Cabinetul Crisdental din Florești, filmat în sala de tratament" />
+              <div className="absolute inset-x-4 bottom-4 rounded-2xl border border-white/15 bg-[var(--color-deep)]/80 px-4 py-3 text-xs text-white/75 backdrop-blur-md sm:inset-x-6 sm:bottom-6">
+                Cabinetul nostru, filmat exact așa cum îl veți găsi.
+              </div>
             </Reveal>
 
-            <div className="mt-8 space-y-6">
-              {POINTS.map((p, i) => (
-                <Reveal key={p.title} delay={0.08 + i * 0.06} className="flex gap-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-accent)]/10 text-[var(--color-accent)]">
-                    <p.icon size={18} strokeWidth={2.2} />
-                  </div>
-                  <div>
-                    <div className="font-display text-lg text-[var(--color-deep)]">{p.title}</div>
-                    <div className="mt-1 text-sm text-[var(--color-text-soft)]">{p.text}</div>
-                  </div>
-                </Reveal>
-              ))}
+            <div className="px-2 py-4 sm:px-5 sm:py-8 lg:flex lg:flex-col lg:justify-center lg:px-8">
+              <Reveal>
+                <span className="eyebrow !text-[var(--color-claysoft)]">De ce Crisdental</span>
+                <h2 className="display-balance mt-5 font-display text-[clamp(2.5rem,4.5vw,4.75rem)] leading-[.95] tracking-[-.04em]">
+                  Mai puțină incertitudine. Mai multă încredere.
+                </h2>
+                <p className="mt-6 max-w-lg text-base leading-7 text-white/62">
+                  Un cabinet bun nu vă lasă să ghiciți ce urmează. Vă explicăm opțiunile,
+                  prețurile și pașii înainte de orice tratament.
+                </p>
+              </Reveal>
+
+              <div className="mt-10 grid gap-x-5 sm:grid-cols-2">
+                {POINTS.map((point, index) => (
+                  <Reveal key={point.title} delay={0.06 + index * 0.05} className="border-t border-white/12 py-5">
+                    <div className="flex items-start gap-3">
+                      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[var(--color-accent)] text-white"><point.icon size={16} strokeWidth={2.2} /></span>
+                      <div>
+                        <h3 className="font-display text-lg leading-tight">{point.title}</h3>
+                        <p className="mt-2 text-sm leading-5 text-white/55">{point.text}</p>
+                      </div>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
             </div>
           </div>
         </div>

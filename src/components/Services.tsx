@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ArrowUpRight, CreditCard } from 'lucide-react'
+import { ArrowRight, CreditCard, ReceiptText } from 'lucide-react'
 import Reveal from './Reveal'
 
 type Item = { name: string; price: string }
@@ -92,95 +92,95 @@ const CATEGORIES: Category[] = [
 
 export default function Services() {
   const [active, setActive] = useState(CATEGORIES[0].id)
+  const activeCategory = CATEGORIES.find((category) => category.id === active) ?? CATEGORIES[0]
 
   return (
-    <section id="tarife" className="bg-[var(--color-bg)] py-24">
-      <div className="mx-auto max-w-4xl px-6">
-        <Reveal>
-          <span className="text-xs font-medium tracking-[0.2em] text-[var(--color-accent)] uppercase">
-            Tarife
-          </span>
-          <h2 className="mt-3 font-display text-3xl text-[var(--color-deep)] sm:text-4xl">
-            Fiecare tratament, cu prețul lui, dinainte.
-          </h2>
-          <p className="mt-4 max-w-xl text-[var(--color-text-soft)]">
-            Nu vă spunem „tarif la telefon". Toate prețurile de mai jos sunt cele practicate în
-            cabinet. Prețul final se confirmă la consultația gratuită, în funcție de cazul dvs.
-          </p>
+    <section id="tarife" className="bg-[var(--color-bg)] py-24 sm:py-32">
+      <div className="section-shell">
+        <div className="grid gap-8 lg:grid-cols-[1.15fr_.85fr] lg:items-end">
+          <Reveal>
+            <span className="eyebrow">Tarife fără surprize</span>
+            <h2 className="display-balance mt-5 max-w-3xl font-display text-[clamp(2.6rem,5vw,5.25rem)] leading-[.94] tracking-[-.045em] text-[var(--color-deep)]">
+              Planul începe cu un preț clar.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.08} className="lg:pb-2">
+            <p className="max-w-xl text-base leading-7 text-[var(--color-text-soft)] sm:text-lg">
+              Toate tarifele sunt publice. La consultația gratuită aflați exact ce este necesar,
+              în ce ordine și cât va costa cazul dumneavoastră.
+            </p>
+          </Reveal>
+        </div>
+
+        <Reveal delay={0.1} className="mt-12 border-y border-[var(--color-line)] py-4" role="tablist">
+          <div className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {CATEGORIES.map((category, index) => (
+              <button
+                key={category.id}
+                id={`tab-${category.id}`}
+                role="tab"
+                aria-selected={active === category.id}
+                aria-controls={`tarife-${category.id}`}
+                onClick={() => setActive(category.id)}
+                className={`group flex shrink-0 items-center gap-2.5 rounded-full border px-4 py-2.5 text-sm font-semibold transition-all sm:px-5 ${
+                  active === category.id
+                    ? 'border-[var(--color-deep)] bg-[var(--color-deep)] text-white shadow-[0_12px_30px_rgba(13,59,61,.16)]'
+                    : 'border-transparent text-[var(--color-text-soft)] hover:border-[var(--color-line)] hover:bg-[var(--color-surface)]'
+                }`}
+              >
+                <span className={`text-[10px] ${active === category.id ? 'text-[var(--color-claysoft)]' : 'text-[var(--color-accent)]'}`}>
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                {category.label}
+              </button>
+            ))}
+          </div>
         </Reveal>
 
-        <Reveal delay={0.1} className="mt-10 flex flex-wrap gap-2" role="tablist">
-          {CATEGORIES.map((c) => (
-            <button
-              key={c.id}
-              id={`tab-${c.id}`}
-              role="tab"
-              aria-selected={active === c.id}
-              aria-controls={`tarife-${c.id}`}
-              onClick={() => setActive(c.id)}
-              className={`rounded-full border px-4 py-2 text-sm transition-colors ${
-                active === c.id
-                  ? 'border-[var(--color-deep)] bg-[var(--color-deep)] text-white'
-                  : 'border-[var(--color-line)] text-[var(--color-text-soft)] hover:border-[var(--color-accent)]/50'
-              }`}
-            >
-              {c.label}
-            </button>
-          ))}
-        </Reveal>
-
-        {/*
-          Every category stays in the DOM and only the inactive ones are hidden.
-          Rendering just the active tab would leave six of the seven price lists
-          invisible to search engines, and this price list is the single thing
-          that sets this practice apart from competitors who say "tarif la telefon".
-        */}
-        <Reveal delay={0.15} className="mt-8">
-          {CATEGORIES.map((c) => (
-            <div
-              key={c.id}
-              id={`tarife-${c.id}`}
-              role="tabpanel"
-              aria-labelledby={`tab-${c.id}`}
-              hidden={c.id !== active}
-            >
-              <h3 className="sr-only">{c.label}</h3>
-              <div className="divide-y divide-[var(--color-line)] border-t border-[var(--color-line)]">
-                {c.items.map((item, i) => (
-                  <a
-                    key={item.name}
-                    href="#contact"
-                    className="group flex items-center justify-between gap-4 py-4 transition-colors hover:bg-[var(--color-surface)]"
-                  >
-                    <div className="flex items-center gap-4">
-                      <span className="hidden font-display text-sm text-[var(--color-accent)] italic sm:block">
-                        {String(i + 1).padStart(2, '0')}
-                      </span>
-                      <span className="font-display text-base text-[var(--color-deep)] sm:text-lg">
-                        {item.name}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium text-[var(--color-text-soft)] sm:text-base">
-                        {item.price}
-                      </span>
-                      <ArrowUpRight
-                        size={16}
-                        className="text-[var(--color-accent)] opacity-0 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
-                      />
-                    </div>
-                  </a>
-                ))}
-              </div>
-
-              {c.note && (
-                <div className="mt-6 flex items-center gap-3 rounded-2xl bg-[var(--color-claysoft)]/15 px-5 py-4 text-sm text-[var(--color-deep)]">
-                  <CreditCard size={18} className="shrink-0 text-[var(--color-clay)]" />
-                  {c.note}
+        <Reveal delay={0.14} className="mt-8">
+          <div className="overflow-hidden rounded-[2rem] border border-[var(--color-line)] bg-[var(--color-surface)] shadow-[0_28px_80px_rgba(13,59,61,.07)] sm:rounded-[2.75rem]">
+            <div className="grid gap-5 border-b border-[var(--color-line)] bg-[var(--color-sage)]/55 px-6 py-6 sm:px-9 lg:grid-cols-[1fr_auto] lg:items-center">
+              <div className="flex items-center gap-4">
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[var(--color-deep)] text-white"><ReceiptText size={19} /></span>
+                <div>
+                  <p className="text-[10px] font-bold tracking-[.18em] text-[var(--color-accent)] uppercase">Listă de prețuri</p>
+                  <h3 className="mt-1 font-display text-2xl text-[var(--color-deep)]">{activeCategory.label}</h3>
                 </div>
-              )}
+              </div>
+              <a href="#contact" className="group inline-flex items-center gap-2 text-sm font-bold text-[var(--color-deep)]">
+                Cereți un plan personalizat <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+              </a>
             </div>
-          ))}
+
+            {CATEGORIES.map((category) => (
+              <div
+                key={category.id}
+                id={`tarife-${category.id}`}
+                role="tabpanel"
+                aria-labelledby={`tab-${category.id}`}
+                hidden={category.id !== active}
+                className="px-6 pb-7 sm:px-9 sm:pb-9"
+              >
+                <h3 className="sr-only">{category.label}</h3>
+                <div className="divide-y divide-[var(--color-line)]">
+                  {category.items.map((item, index) => (
+                    <a key={item.name} href="#contact" className="group grid grid-cols-[auto_1fr] items-center gap-x-4 gap-y-1 py-5 sm:grid-cols-[auto_1fr_auto] sm:py-6">
+                      <span className="font-display text-sm italic text-[var(--color-accent)]">{String(index + 1).padStart(2, '0')}</span>
+                      <span className="font-display text-lg leading-tight text-[var(--color-deep)] transition-transform group-hover:translate-x-1 sm:text-xl">{item.name}</span>
+                      <span className="col-start-2 whitespace-nowrap text-sm font-bold text-[var(--color-text-soft)] sm:col-start-auto sm:text-base">{item.price}</span>
+                    </a>
+                  ))}
+                </div>
+
+                {category.note && (
+                  <div className="mt-5 flex items-center gap-3 rounded-2xl bg-[var(--color-claysoft)]/20 px-5 py-4 text-sm font-medium text-[var(--color-deep)]">
+                    <CreditCard size={18} className="shrink-0 text-[var(--color-clay)]" />
+                    {category.note}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </Reveal>
       </div>
     </section>

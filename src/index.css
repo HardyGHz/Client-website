@@ -2,24 +2,26 @@
 
 @theme {
   /* Warm paper base — calm clinical trust, not sterile */
-  --color-bg: #fbf6ee;
-  --color-surface: #ffffff;
-  --color-text: #1c2a2b;
-  --color-text-soft: #445555;
+  --color-bg: #f8f2e9;
+  --color-surface: #fffdf9;
+  --color-text: #172a2a;
+  --color-text-soft: #4a5d5c;
 
   /* Deep ink-teal — navbar on scroll, footer, dark sections */
-  --color-deep: #0f3a40;
-  --color-deepsoft: #1b4c52;
+  --color-deep: #0d3b3d;
+  --color-deepsoft: #174f50;
 
   /* Confident marine-teal — primary accent, CTAs, links */
-  --color-accent: #1f6f73;
-  --color-accentsoft: #4b9498;
+  --color-accent: #187a74;
+  --color-accentsoft: #55a39b;
 
   /* Warm clay — secondary accent, financing / urgency highlights */
-  --color-clay: #c97a45;
-  --color-claysoft: #e3a374;
+  --color-clay: #d2743e;
+  --color-claysoft: #efb78f;
 
-  --color-line: #e6ddc9;
+  --color-sage: #dce7df;
+
+  --color-line: #dfd3bf;
 
   --font-display: "Spectral", serif;
   --font-body: "Public Sans", sans-serif;
@@ -53,7 +55,19 @@
   50% { transform: translate(-3%, -4%) scale(1.06); }
 }
 
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-10px) rotate(1deg); }
+}
+
+@keyframes pulse-ring {
+  0%, 100% { transform: scale(0.96); opacity: 0.45; }
+  50% { transform: scale(1.04); opacity: 0.8; }
+}
+
 html { scroll-behavior: smooth; }
+
+section[id] { scroll-margin-top: 5.5rem; }
 
 body {
   background-color: var(--color-bg);
@@ -63,6 +77,54 @@ body {
   overflow-x: hidden;
 }
 
+* { box-sizing: border-box; }
+button, input, select, textarea { font: inherit; }
+button, a { touch-action: manipulation; }
+
+.section-shell {
+  width: min(1240px, calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+.display-balance { text-wrap: balance; }
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-accent);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 2rem;
+  height: 1px;
+  background: currentColor;
+}
+
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
+}
+
+.skip-link {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 100;
+  transform: translateY(-160%);
+  border-radius: 999px;
+  background: var(--color-deep);
+  color: white;
+  padding: 0.75rem 1rem;
+  transition: transform 160ms ease;
+}
+
+.skip-link:focus { transform: translateY(0); }
+
 ::selection { background-color: var(--color-accent); color: var(--color-bg); }
 :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 
@@ -71,6 +133,10 @@ body {
 ::-webkit-scrollbar-thumb {
   background: color-mix(in srgb, var(--color-accent) 45%, var(--color-bg));
   border-radius: 8px;
+}
+
+@media (min-width: 768px) {
+  .section-shell { width: min(1240px, calc(100% - 4rem)); }
 }
 
 @media (prefers-reduced-motion: reduce) {
