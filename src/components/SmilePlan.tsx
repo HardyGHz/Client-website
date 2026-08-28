@@ -1,30 +1,99 @@
 import { motion, useReducedMotion } from 'framer-motion'
-import { ArrowUpRight, Check } from 'lucide-react'
+import { ArrowRight, CalendarDays, ClipboardCheck, Stethoscope } from 'lucide-react'
 
-const DOTS = [
-  [118, 200, '01'], [183, 138, '02'], [280, 112, '03'],
-  [377, 138, '04'], [442, 200, '05'], [280, 334, '06'],
-] as const
+const STEPS = [
+  {
+    icon: CalendarDays,
+    title: 'Ne spuneți ce vă supără',
+    text: 'Prin telefon sau prin formularul scurt.',
+  },
+  {
+    icon: Stethoscope,
+    title: 'Alegem medicul potrivit',
+    text: 'Unul dintre cei 6 specialiști preia cazul.',
+  },
+  {
+    icon: ClipboardCheck,
+    title: 'Primiți planul și prețul',
+    text: 'Înainte de orice tratament.',
+  },
+]
 
 export default function SmilePlan() {
   const reduceMotion = useReducedMotion()
+
   return (
-    <div className="relative mx-auto aspect-[1.02] w-full max-w-[560px] overflow-hidden rounded-[2.75rem] border border-[var(--color-deep)]/10 bg-[var(--color-surface)] shadow-[0_34px_90px_rgba(13,59,61,.14)]">
-      <div className="flex items-center justify-between border-b border-[var(--color-line)] px-6 py-4 text-[10px] font-semibold tracking-[.18em] text-[var(--color-text-soft)] uppercase"><span>Planul dumneavoastră</span><span className="inline-flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-[var(--color-accent)]" /> Clar, dinainte</span></div>
-      <svg viewBox="0 0 560 430" className="w-full" role="img" aria-label="Plan vizual de tratament coordonat de șase medici specialiști">
-        <defs><pattern id="dental-grid" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M28 0H0V28" fill="none" stroke="#0d3b3d" strokeOpacity=".055" /></pattern></defs>
-        <rect width="560" height="430" fill="url(#dental-grid)" />
-        <motion.path d="M82 230 C108 74 452 74 478 230" fill="none" stroke="#dce7df" strokeWidth="54" strokeLinecap="round" initial={reduceMotion ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.15, ease: [0.22, 1, 0.36, 1] }} />
-        <motion.path d="M122 240 C165 360 395 360 438 240" fill="none" stroke="#efb78f" strokeOpacity=".7" strokeWidth="20" strokeLinecap="round" initial={reduceMotion ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1, delay: .2, ease: [0.22, 1, 0.36, 1] }} />
-        <path d="M104 229 C135 98 425 98 456 229M148 243 C184 326 376 326 412 243" fill="none" stroke="#0d3b3d" strokeOpacity=".34" strokeDasharray="5 8" />
-        {DOTS.map(([cx, cy, label], index) => <g key={label}><motion.circle cx={cx} cy={cy} r="20" fill={index === 2 ? '#d2743e' : '#0d3b3d'} initial={reduceMotion ? false : { scale: 0 }} animate={{ scale: 1 }} transition={{ delay: .35 + index * .07, type: 'spring' }} /><text x={cx} y={cy + 4} textAnchor="middle" fill="white" fontFamily="Public Sans" fontSize="10" fontWeight="700">{label}</text></g>)}
-        <circle cx="280" cy="224" r="62" fill="#fffdf9" stroke="#187a74" strokeWidth="3" />
-        <text x="280" y="210" textAnchor="middle" fill="#0d3b3d" fontFamily="Spectral" fontSize="22">6 medici</text>
-        <text x="280" y="238" textAnchor="middle" fill="#4a5d5c" fontFamily="Public Sans" fontSize="11" letterSpacing="1.5">UN SINGUR PLAN</text>
-      </svg>
-      <div className="absolute inset-x-5 bottom-5 grid grid-cols-[1fr_auto] items-center gap-4 rounded-2xl bg-[var(--color-deep)] p-4 text-white shadow-xl sm:inset-x-7 sm:bottom-7">
-        <span className="flex items-center gap-3"><span className="grid h-8 w-8 place-items-center rounded-full bg-[var(--color-accent)]"><Check size={15} /></span><span><strong className="block font-display text-lg">Consultație: 0 RON</strong><small className="text-white/55">Preț explicat înainte de tratament</small></span></span><ArrowUpRight className="text-[var(--color-claysoft)]" />
+    <div className="relative mx-auto w-full max-w-[560px] overflow-hidden rounded-[2.75rem] border border-[var(--color-deep)]/10 bg-[var(--color-surface)] shadow-[0_34px_90px_rgba(13,59,61,.14)]">
+      <div className="flex items-center justify-between border-b border-[var(--color-line)] px-6 py-4 text-[10px] font-semibold tracking-[.18em] text-[var(--color-text-soft)] uppercase sm:px-8">
+        <span>Primul pas</span>
+        <span className="inline-flex items-center gap-2">
+          <span className="h-2 w-2 rounded-full bg-[var(--color-accent)]" />
+          Simplu și clar
+        </span>
       </div>
+
+      <div className="relative px-6 pb-6 sm:px-8" style={{ paddingTop: '2rem' }}>
+        <div aria-hidden className="absolute inset-0 bg-[linear-gradient(to_right,rgba(13,59,61,.045)_1px,transparent_1px),linear-gradient(to_bottom,rgba(13,59,61,.045)_1px,transparent_1px)] bg-[size:28px_28px]" />
+
+        <div className="relative flex items-end justify-between gap-5 border-b border-[var(--color-line)] pb-6">
+          <div>
+            <p className="text-[10px] font-bold tracking-[.16em] text-[var(--color-accent)] uppercase">
+              Consultație inițială
+            </p>
+            <p className="mt-2 font-display text-4xl tracking-[-.04em] text-[var(--color-deep)] sm:text-5xl">
+              Gratuită
+            </p>
+          </div>
+          <div className="rounded-2xl bg-[var(--color-sage)] px-4 py-3 text-right">
+            <strong className="block font-display text-2xl leading-none text-[var(--color-deep)]">0 RON</strong>
+            <span className="mt-1 block text-[10px] font-semibold text-[var(--color-text-soft)]">fără obligații</span>
+          </div>
+        </div>
+
+        <div className="relative mt-6 space-y-5">
+          <motion.div
+            aria-hidden
+            className="absolute top-5 bottom-5 left-5 w-px origin-top bg-[var(--color-line)]"
+            initial={reduceMotion ? false : { scaleY: 0 }}
+            animate={{ scaleY: 1 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          />
+
+          {STEPS.map((step, index) => (
+            <motion.div
+              key={step.title}
+              className="relative flex items-center gap-4"
+              initial={reduceMotion ? false : { opacity: 0, x: 14 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.14 + index * 0.1 }}
+            >
+              <span className={`relative z-10 grid h-10 w-10 shrink-0 place-items-center rounded-full ${index === 2 ? 'bg-[var(--color-clay)]' : 'bg-[var(--color-deep)]'} text-white`}>
+                <step.icon size={17} strokeWidth={2} />
+              </span>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-[9px] font-bold tracking-[.14em] text-[var(--color-accent)]">0{index + 1}</span>
+                  <strong className="font-display text-lg leading-tight text-[var(--color-deep)] sm:text-xl">{step.title}</strong>
+                </div>
+                <p className="mt-1 text-xs leading-5 text-[var(--color-text-soft)] sm:text-sm">{step.text}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      <a
+        href="#contact"
+        className="group m-5 mt-1 flex items-center justify-between gap-4 rounded-2xl bg-[var(--color-deep)] px-5 py-4 text-white shadow-xl transition-transform hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] sm:m-7 sm:mt-2"
+      >
+        <span>
+          <strong className="block font-display text-lg sm:text-xl">Solicită consultația gratuită</strong>
+          <small className="mt-1 block text-white/55">Vă sunăm pentru confirmare</small>
+        </span>
+        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[var(--color-accent)] text-white transition-transform group-hover:translate-x-1">
+          <ArrowRight size={18} />
+        </span>
+      </a>
     </div>
   )
 }
